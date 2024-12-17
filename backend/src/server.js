@@ -107,9 +107,11 @@ io.on("connection", (socket) => {
   });
 
   // Play Cards
-  socket.on("playCards", ({ roomCode, cards, claimedValue }) => {
+  socket.on("playCards", ({ roomCode, cards, claimedValue, userId }) => {
     const room = roomManager.rooms[roomCode];
     const player = room.players.find((p) => p.id === userId);
+    console.log("Id:", userId);
+    console.log("Player:", player);
 
     try {
       validationService.validateCardPlay(player, cards, claimedValue);

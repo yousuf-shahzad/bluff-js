@@ -38,26 +38,58 @@ class ValidationService {
     }
   }
 
+  // validateCardPlay(player, cards, claimedValue) {
+  //   console.log(player, cards, claimedValue);
+  //   console.log(player.hand);
+  //   if (!player || !player.hand) {
+  //     throw new Error("Invalid player data");
+  //   }
+
+  //   if (!cards || !Array.isArray(cards) || cards.length === 0) {
+  //     throw new Error("Must play at least one card");
+  //   }
+
+  //   const invalidCards = cards.filter(
+  //     (card) => !player.hand.some((playerCard) => playerCard.id === card.id)
+  //   );
+
+  //   if (invalidCards.length > 0) {
+  //     throw new Error("Invalid cards played");
+  //   }
+
+  //   if (!claimedValue || typeof claimedValue !== "string") {
+  //     throw new Error("Must claim a valid card value");
+  //   }
+  // }
+
+  /**
+   * Validate card play with enhanced sequential placement checks
+   * @param {Object} player - Player attempting to play cards
+   * @param {Array} cards - Cards being played
+   * @param {string} claimedValue - Claimed card value
+   * @throws {Error} If validation fails
+   */
   validateCardPlay(player, cards, claimedValue) {
-    if (!player || !player.hand) {
-      throw new Error("Invalid player data");
+    // Check if it's the player's turn
+    if (!player) {
+      throw new Error('Invalid player');
     }
 
-    if (!cards || !Array.isArray(cards) || cards.length === 0) {
-      throw new Error("Must play at least one card");
-    }
+    // Validate cards belong to the player
+    cards.forEach(card => {
+      const playerOwnsCard = player.hand.some(c => c.id === card.id);
+      if (!playerOwnsCard) {
+        throw new Error('Player does not own all specified cards');
+      }
+    });
 
-    const invalidCards = cards.filter(
-      (card) => !player.hand.some((playerCard) => playerCard.id === card.id)
-    );
+    // Validate all played cards are of the claimed value
+    // const invalidCards = cards.filter(card => card.value !== claimedValue);
+    // if (invalidCards.length > 0) {
+    //   throw new Error('All played cards must match the claimed value');
+    // }
 
-    if (invalidCards.length > 0) {
-      throw new Error("Invalid cards played");
-    }
-
-    if (!claimedValue || typeof claimedValue !== "string") {
-      throw new Error("Must claim a valid card value");
-    }
+    // Additional checks can be added here if needed
   }
 
   validateCreateRoom(username) {

@@ -43,6 +43,7 @@ function GameRoom() {
     const [selectedCards, setSelectedCards] = useState<Card[]>([]);
     const [claimedValue, setClaimedValue] = useState('');
     const [gameError, setGameError] = useState('');
+    const [placementHint, setPlacementHint] = useState('');
 
     // Persistent username check with early render
     const storedUsername = localStorage.getItem('username');
@@ -152,16 +153,23 @@ function GameRoom() {
             return;
         }
 
+        if (selectedCards.length > 4) {
+            setGameError('You cannot play more than 4 cards');
+            return;
+        }
+
         socket?.emit('playCards', {
             roomCode: roomCode!.trim(),
             cards: selectedCards,
-            claimedValue
+            claimedValue,
+            userId: storedUserId
         });
 
         // Reset selection after playing
         setSelectedCards([]);
         setClaimedValue('');
         setGameError('');
+        setPlacementHint('');
     }, [socket, selectedCards, claimedValue, roomCode]);
 
     const callBluff = useCallback(() => {
@@ -249,6 +257,14 @@ function GameRoom() {
 
                 {gameError && <div className="error-message">{gameError}</div>}
 
+                <div className="placement-hints">
+                    {placementHint && gameState.currentPlayer === storedUserId && (
+                        <div className="hint-message">
+                            {placementHint}
+                        </div>
+                    )}
+                </div>
+
                 <div className="play-controls">
                     <select
                         value={claimedValue}
@@ -272,6 +288,7 @@ function GameRoom() {
                         <div
                             key={card.id}
                             className={`card ${selectedCards.some(c => c.id === card.id) ? 'selected' : ''}`}
+                            data-suit={card.suit}
                             onClick={() => selectCard(card)}
                         >
                             {card.value}{card.suit}
@@ -282,7 +299,6 @@ function GameRoom() {
                 <div className="game-controls">
                     <button
                         onClick={callBluff}
-                        disabled={gameState.currentPlayer !== storedUserId}
                     >
                         Call Bluff
                     </button>
@@ -290,6 +306,32 @@ function GameRoom() {
             </div>
         );
     };
+
+    useEffect(() => {
+        if (gameState.currentPile.length > 0) {
+            const lastCard = gameState.currentPile[gameState.currentPile.length - 1];
+            const CARD_ORDER = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+
+            let hint = '';
+            switch (lastCard.value) {
+                case 'A':
+                    hint = 'You can play a 2 or a K next';
+                    break;
+                case 'K':
+                    hint = 'You can play an A or a 2 next';
+                    break;
+                case '2':
+                    hint = 'You can play a 3 or an A next';
+                    break;
+                default:
+                    const currentIndex = CARD_ORDER.indexOf(lastCard.value);
+                    const nextValue = CARD_ORDER[(currentIndex + 1) % CARD_ORDER.length];
+                    hint = `You should ideally play a ${nextValue}`;
+            }
+
+            setPlacementHint(hint);
+        }
+    }, [gameState.currentPile]);
 
     return (
         <div className="App">

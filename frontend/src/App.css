@@ -17,7 +17,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 30px;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -33,12 +33,6 @@
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-.lobby-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
 }
 
 .player-list {
@@ -61,33 +55,75 @@
   border-color: #4CAF50;
 }
 
+.player-hand {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
 .card {
-  display: inline-block;
-  width: 60px;
-  height: 90px;
+  display: flex;
+  width: 80px;
+  height: 120px;
   border: 2px solid #333;
   border-radius: 8px;
-  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
   cursor: pointer;
   user-select: none;
+  position: relative;
+  perspective: 1000px;
+}
+
+.card::before {
+  content: attr(data-suit);
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 14px;
+}
+
+.card::after {
+  content: attr(data-suit);
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 14px;
+  transform: rotate(180deg);
 }
 
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transform: scale(1.1) rotateY(10deg);
+  z-index: 10;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 .card.selected {
   background-color: #e0f7fa;
   border-color: #00bcd4;
-  transform: scale(1.05);
+  transform: scale(1.1) rotateY(10deg);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* Suit colors */
+.card[data-suit='♥'], .card[data-suit='♦'] {
+  color: #d32f2f;
+}
+
+.card[data-suit='♠'], .card[data-suit='♣'] {
+  color: #212121;
 }
 
 /* Responsive Design */
@@ -102,13 +138,17 @@
   }
 
   .card {
-    width: 50px;
-    height: 75px;
-    font-size: 14px;
+    width: 70px;
+    height: 100px;
+    font-size: 18px;
+  }
+
+  .player-hand {
+    max-height: 250px;
   }
 }
 
-/* Button Styling */
+/* Button and Input Styles remain the same as in the previous CSS */
 button {
   flex-grow: 1;
   padding: 12px;
@@ -134,7 +174,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Input Styling */
 input, select {
   width: 100%;
   padding: 12px;
