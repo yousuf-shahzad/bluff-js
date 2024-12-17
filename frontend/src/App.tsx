@@ -8,9 +8,9 @@ import {
 } from 'react-router-dom';
 import io, { Socket } from 'socket.io-client';
 import './App.css';
-import HomePage from './HomePage.tsx';
-import GameRoom from './GameRoom.tsx';
-import NotFound from './NotFound.tsx';
+import HomePage from './components/HomePage.tsx';
+import GameRoom from './components/GameRoom.tsx';
+import NotFound from './components/NotFound.tsx';
 
 function App() {
   return (
