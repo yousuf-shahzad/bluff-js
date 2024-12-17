@@ -21,18 +21,25 @@ The frontend of Bluff is built with React and TypeScript, providing an interacti
 ## Installation
 
 1. **Navigate to the frontend directory:**
+
    ```bash
    cd frontend
    ```
+
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
+
 3. **Create a `.env` file:**
+
    ```env
    REACT_APP_BACKEND_URL=http://localhost:3001
    ```
+
 4. **Run the app:**
+
    ```bash
    npm start
    ```
@@ -40,15 +47,15 @@ The frontend of Bluff is built with React and TypeScript, providing an interacti
 ## Folder Structure
 
 ```
-frontend/
-│-- src/
-│   │-- components/
+📂 frontend/
+├── 📂 src/
+│   ├── 📂 components/
 │   │   ├── HomePage.tsx   # Lobby and Room Creation
 │   │   ├── GameRoom.tsx   # Main Game Interface
 │   │   └── NotFound.tsx   # 404 Handling
 │   ├── App.tsx            # Entry Point
 │   └── App.css            # Styles
-└── public/
+└── 📂 public/
 ```
 
 ## Key Components

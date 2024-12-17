@@ -1,20 +1,24 @@
 # Backend Documentation
 
 ## Overview
+
 This document provides an overview of the backend architecture for a real-time multiplayer card game built using Node.js, Express.js, and Socket.IO.
 
 ---
 
 ## Project Structure
+
 ```
-📁 project-root
+📁 backend
 ├── server.js                # Main server entry point
-├── config
+├── 📁 middleware
+│   └── errorHandler.js     # Error handling middleware
+├── 📁 config
 │   └── constants.js        # Game and server constants
-├── services
+├── 📁 services
 │   ├── gameLogic.js        # Game logic implementation
 │   └── validation.js       # Validation for game actions
-├── utils
+├── 📁 utils
 │   ├── deck.js             # Card deck utilities
 │   ├── logger.js           # Winston-based logging
 │   └── roomManager.js      # Room management logic
@@ -24,21 +28,29 @@ This document provides an overview of the backend architecture for a real-time m
 ---
 
 ## Installation and Setup
+
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd project-root
    ```
+
 2. Install dependencies:
+
    ```bash
    npm install
    ```
+
 3. Create a `.env` file and configure the following:
+
    ```env
    PORT=5000
    FRONTEND_URL=http://localhost:3000
    ```
+
 4. Start the server:
+
    ```bash
    npm start
    ```
