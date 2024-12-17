@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# Bluff Card Game Frontend 🎨
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+The frontend of Bluff is built with React and TypeScript, providing an interactive and dynamic user interface for a real-time multiplayer card game. It connects to the backend using Socket.IO for real-time communication.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Real-Time Multiplayer:** Live gameplay experience with automatic updates.
+- **Room Management:** Create or join game rooms.
+- **Interactive UI:** Play cards, call bluffs, and track game progress.
+- **Error Handling:** User-friendly error messages.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **React** (for UI)
+- **TypeScript** (for type safety)
+- **Socket.IO Client** (for real-time communication)
+- **React Router** (for navigation)
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Navigate to the frontend directory:**
+   ```bash
+   cd frontend
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Create a `.env` file:**
+   ```env
+   REACT_APP_BACKEND_URL=http://localhost:3001
+   ```
+4. **Run the app:**
+   ```bash
+   npm start
+   ```
 
-### `npm run build`
+## Folder Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+frontend/
+│-- src/
+│   │-- components/
+│   │   ├── HomePage.tsx   # Lobby and Room Creation
+│   │   ├── GameRoom.tsx   # Main Game Interface
+│   │   └── NotFound.tsx   # 404 Handling
+│   ├── App.tsx            # Entry Point
+│   └── App.css            # Styles
+└── public/
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Key Components
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `HomePage.tsx`
 
-### `npm run eject`
+- **Features:**
+  - Username input
+  - Room creation and joining
+  - Error messages for invalid inputs
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### `GameRoom.tsx`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Features:**
+  - Real-time game state display
+  - Card selection and play mechanics
+  - Bluff calling and game updates
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### `App.tsx`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Features:**
+  - Routes and navigation setup using React Router
 
-## Learn More
+## Development Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Socket.IO Integration:** Persistent socket connections are established upon room joining.
+- **Game State Management:** State is managed using React’s `useState` and `useEffect`.
+- **Type Safety:** TypeScript interfaces ensure better type safety.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
 
-### Code Splitting
+1. **Fork the repository.**
+2. **Create a feature branch:**
+   ```bash
+   git checkout -b feature/new-feature
+   ```
+3. **Commit your changes:**
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. **Push the branch:**
+   ```bash
+   git push origin feature/new-feature
+   ```
+5. **Create a pull request.**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
+MIT License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contact
 
-### Making a Progressive Web App
+Yousuf Shahzad
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
